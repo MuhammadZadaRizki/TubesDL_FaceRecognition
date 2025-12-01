@@ -148,10 +148,10 @@ def main():
             conf_pct = result["confidence"] * 100
 
             # Tentukan warna metric (Streamlit valid: normal/inverse/off)
-            if conf_pct >= 90:
+            if conf_pct >= 80:
                 metric_color = "normal"
                 status_icon = "✅"
-            elif conf_pct >= 70:
+            elif conf_pct >= 50:
                 metric_color = "inverse"
                 status_icon = "🟡"
             else:
