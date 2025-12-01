@@ -122,12 +122,6 @@ def main():
     st.title("👨‍🔬 ViT-Tiny Face Recognition Demo")
     st.markdown("Aplikasi demonstrasi pengenalan identitas wajah menggunakan **Vision Transformer (ViT-Tiny)** yang telah di-*fine-tune* untuk **{NUM_CLASSES} kelas** (orang).")
 
-    # Muat model
-    model = load_model()
-
-    if model is None:
-        st.stop() # Berhenti jika model gagal dimuat
-
     # Input Gambar
     uploaded_file = st.file_uploader(
         "Unggah Gambar Wajah (JPG/JPEG/PNG)",
