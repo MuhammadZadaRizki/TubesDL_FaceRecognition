@@ -71,10 +71,10 @@ def load_model():
 
         model.to(DEVICE)
         model.eval()
-        return model
+        return model, loaded
     except Exception as e:
         st.error(f"Gagal memuat model. Error: {e}")
-        return None
+        return None, False
 
 # --- 4. Fungsi Prediksi ---
 def predict_image(model, image):
@@ -104,6 +104,9 @@ def predict_image(model, image):
 def main():
 
     model, loaded = load_model()
+
+    if model is None:
+        st.stop()
 
     if loaded:
         st.toast("✅ Bobot model berhasil dimuat.", icon='🎉')
