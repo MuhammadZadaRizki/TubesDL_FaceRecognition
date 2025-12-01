@@ -162,15 +162,12 @@ def main():
             confidence_percentage = result['confidence'] * 100
 
             if confidence_percentage >= 90:
-                alert_type = "success"
-                status_icon = "✅"
+                metric_color = "normal" 
             elif confidence_percentage >= 70:
-                alert_type = "warning"
-                status_icon = "🟡"
+                metric_color = "inverse"
             else:
-                alert_type = "error"
-                status_icon = "❌"
-
+                metric_color = "off"
+                
             st.subheader(f"{status_icon} Identitas Diprediksi:")
             st.markdown(f"""
                 <div style="background-color: #eef4ff; padding: 20px; border-radius: 10px; border-left: 5px solid #4f46e5;">
@@ -181,7 +178,8 @@ def main():
             st.metric(
                 label="Tingkat Keyakinan (Confidence)",
                 value=f"{confidence_percentage:.2f}%",
-                delta_color=alert_type
+                delta=None,
+                delta_color=metric_color
             )
 
             st.markdown(f"Model ViT (Vision Transformer) memprediksi bahwa wajah ini milik **{result['name']}** dari **{NUM_CLASSES}** identitas yang dilatih.")
