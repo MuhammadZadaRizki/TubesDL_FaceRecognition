@@ -63,11 +63,11 @@ def load_model():
         # Cek apakah file bobot ada
         if os.path.exists(MODEL_WEIGHTS_PATH):
             model.load_state_dict(torch.load(MODEL_WEIGHTS_PATH, map_location=DEVICE))
-            st.toast("✅ Bobot model berhasil dimuat.", icon='🎉')
+            loaded = true
         else:
             # Gunakan bobot pretrained ImageNet sebagai fallback jika bobot latihan tidak ditemukan
             model = timm.create_model(model_name, pretrained=True, num_classes=NUM_CLASSES)
-            st.warning(f"⚠️ Bobot model '{MODEL_WEIGHTS_PATH}' tidak ditemukan. Menggunakan bobot ImageNet pretrained.")
+            loaded = false
 
         model.to(DEVICE)
         model.eval()
@@ -102,6 +102,14 @@ def predict_image(model, image):
 
 # --- 5. SETUP APLIKASI STREAMLIT ---
 def main():
+
+    model, loaded = load_model()
+
+    if loaded:
+        st.toast("✅ Bobot model berhasil dimuat.", icon='🎉')
+    else:
+        st.warning(f"⚠️ Bobot '{MODEL_WEIGHTS_PATH}' tidak ditemukan. Menggunakan pretrained ImageNet.")
+
     st.set_page_config(
         page_title="ViT Face Recognition Demo",
         layout="wide",
