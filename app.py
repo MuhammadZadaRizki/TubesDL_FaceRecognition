@@ -63,11 +63,11 @@ def load_model():
         # Cek apakah file bobot ada
         if os.path.exists(MODEL_WEIGHTS_PATH):
             model.load_state_dict(torch.load(MODEL_WEIGHTS_PATH, map_location=DEVICE))
-            loaded = true
+            loaded = True
         else:
             # Gunakan bobot pretrained ImageNet sebagai fallback jika bobot latihan tidak ditemukan
             model = timm.create_model(model_name, pretrained=True, num_classes=NUM_CLASSES)
-            loaded = false
+            loaded = False
 
         model.to(DEVICE)
         model.eval()
